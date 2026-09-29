@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>萬紫千紅 角色招募表</title>
+<style>
+:root {
+    --cai: #6d9eeb; --cai-l: #c9daf8;
+    --die: #8e7cc3; --die-l: #d9d2e9;
+    --the: #ffd966; --the-l: #fff2cc;
+    --led: #d5a6bd; --led-l: #ead1dc;
+    --empty: #666; --line: #333;
+}
+body { margin: 0; padding: 16px; background: #f4f5f7; color: #222; font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif; font-size: 14px; }
+h1 { font-size: 20px; margin: 0 0 8px; }
+.note { font-size: 13px; color: #555; margin: 6px 0; line-height: 1.7; }
+.note b { color: #222; }
+.legend span { display: inline-block; margin-right: 14px; }
+.btn { padding: 4px 10px; border: 1px solid #999; background: #fff; border-radius: 4px; cursor: pointer; }
+.order { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 4px; border: 1px solid #555; border-radius: 4px; color: #222; }
+.chip.cai { background: var(--cai-l); } .chip.die { background: var(--die-l); } .chip.the { background: var(--the-l); } .chip.led { background: var(--led-l); }
+.chip button { border: 1px solid #888; background: #fff; border-radius: 3px; cursor: pointer; padding: 0 5px; font-size: 11px; }
+.chip button:disabled { opacity: .3; cursor: default; }
+.wrap { overflow-x: auto; }
+table { border-collapse: collapse; background: var(--empty); }
+th, td { border: 1px solid var(--line); }
+thead th { padding: 6px 8px; font-weight: normal; font-size: 13px; position: sticky; top: 0; z-index: 2; }
+th.lv { background: #fff; width: 48px; font-weight: normal; }
+td.cell { width: 88px; padding: 4px 3px 3px; text-align: center; vertical-align: top; position: relative; }
+td.blank { background: var(--empty); }
+td.cai { background: var(--cai); } td.cai.l { background: var(--cai-l); }
+td.die { background: var(--die); } td.die.l { background: var(--die-l); }
+td.the { background: var(--the); } td.the.l { background: var(--the-l); }
+td.led { background: var(--led); } td.led.l { background: var(--led-l); }
+td.na { background: #d9d9d9; }
+th.cai { background: var(--cai-l); } th.die { background: var(--die-l); } th.the { background: var(--the-l); } th.led { background: var(--led-l); }
+td.cell img { display: block; width: 60px; height: 60px; margin: 0 auto; object-fit: cover; border-radius: 4px; background: rgba(0,0,0,.08); }
+td.cell .nm { display: block; font-size: 12px; line-height: 1.3; margin-top: 2px; }
+td.cell .req { display: block; font-size: 11px; line-height: 1.2; color: #333; min-height: 13px; }
+td.cell hr { border: 0; border-top: 1px solid rgba(0,0,0,.35); margin: 3px 2px; }
+td.cell .ck { display: flex; justify-content: center; gap: 6px; font-size: 12px; }
+td.cell .ck label { cursor: pointer; white-space: nowrap; }
+td.cell .ck input { margin: 0 2px 0 0; vertical-align: -2px; }
+td.cell .ck .x { color: #1565c0; font-weight: bold; }
+td.cell .ck .r { color: #d00; font-weight: bold; }
+td.cell .ck .s { color: #e00; }
+td.cell .nm a { color: #0b3d91; text-decoration: none; font-weight: bold; }
+td.cell .nm a:hover { text-decoration: underline; }
+td.cell .nm small { display: block; font-size: 10px; color: #444; line-height: 1.2; }
+td.cell .badge { position: absolute; top: 1px; right: 3px; color: #e00; font-size: 18px; line-height: 1; display: none; text-shadow: 0 0 2px #fff; }
+td.cell.is-star .badge { display: block; }
+td.cell.is-x .face img, td.cell.is-r .face img { opacity: .4; }
+td.cell.is-r .face::after { content: ""; position: absolute; left: 6px; right: 6px; top: 30px; border-top: 3px solid #d00; transform: rotate(-35deg); }
+td.cell .face { position: relative; }
+td.cell.o { outline: 3px solid #f57c1f; outline-offset: -4px; border-radius: 10px; }
+</style>
+</head>
+<body>
+<h1>萬紫千紅 角色招募表</h1>
+<div class="note legend">
+    <span><b>#R</b>＝名聲等級</span>
+    <span><span style="outline:3px solid #f57c1f;border-radius:8px;padding:0 6px">圈選</span>＝原圖圈起來的角色</span>
+    <span>顏色較淺＝不是四條路線都能用的角色（50 人中有 37 人四條路線都能用）</span>
+</div>
+<div class="note">每格下方的勾選框可以自由切換，狀態會記在瀏覽器裡：<b style="color:#1565c0">✗</b>＝原圖的劃線（頭像變淡）、<b style="color:#d00">✗</b>＝自己標記（頭像變淡並劃線）、<b style="color:#e00">★</b>＝星號。<button class="btn" id="reset">恢復成原圖的狀態</button></div>
+<div class="note order" id="order"></div>
+<div class="wrap"><table id="recruit"></table></div>
+<div class="note">資料來源：<a href="https://www.rpgsite.net/guide/21391-fire-emblem-fortunes-weave-recruitment-guide-all-characters-in-game-how-to-recruit-them" target="_blank">rpgsite.net 招募指南</a>；頭像、日文名取自 GameWith；中文譯名取自<a href="https://docs.qq.com/sheet/DR1J5V1FydnpSSGp4?tab=g92spi" target="_blank">騰訊文檔「火焰纹章万紫千红」</a>（轉為繁體）。</div>
+
+<script>
+// GameWith 頭像編號對應日文名、頁面編號、中文譯名
+var JA = {
+    4: ['カイ', '577325', '凱伊'], 5: ['ディートリヒ', '577324', '迪托利希'], 6: ['セオドラ', '577323', '賽奧朵拉'], 7: ['レダ', '577322', '蕾達'], 8: ['ティアラ', '577321', '媞亞拉'],
+    9: ['ピーテル', '577320', '皮特魯'], 10: ['ウルタンド', '577319', '烏爾坦德'], 11: ['ファビオ', '577318', '法畢歐'], 12: ['エスメラルダ', '577317', '艾絲美拉爾達'],
+    13: ['ミカエラ', '577316', '米迦艾拉'], 14: ['ボナパルテ', '577315', '波拿帕爾特'], 15: ['トビヤス', '577313', '托比亞斯'], 16: ['リリアン', '577314', '莉莉安'],
+    17: ['ライサンダー', '577312', '萊桑德'], 18: ['バッカニア', '577310', '巴卡尼亞'], 19: ['シロッコ', '577311', '西洛可'], 20: ['オリンピア', '577309', '奧琳琵婭'],
+    21: ['ムウ', '577308', '穆'], 36: ['ゲイツ', '577373', '蓋茨'], 37: ['ウーシュラ', '577307', '烏修拉'], 38: ['ディエゴ', '577306', '迪雅各'],
+    39: ['サラン', '577339', '沙蘭'], 40: ['ダンテ', '577305', '丹提'], 41: ['シモン', '577304', '西蒙'], 42: ['ニネ', '577303', '妮涅'], 43: ['ナジャ', '577302', '哪吒'],
+    44: ['グザラン', '577301', '古扎嵐'], 45: ['ヌディーヌ', '577300', '努蒂奴'], 46: ['イオ', '577299', '伊歐'], 47: ['カターニャ', '577298', '卡塔妮雅'],
+    48: ['ベンディッツ', '577297', '班迪茲'], 49: ['アレキサンドラ', '577376', '亞歷珊德拉'], 50: ['ノクチュラ', '577296', '諾克裘拉'], 51: ['ヨーカイ', '577295', '楊界'],
+    52: ['ソフィア', '577294', '索緋亞'], 53: ['ヌッツォ', '577380', '努佐'], 54: ['マジーデ', '577293', '馬吉迪'], 55: ['ザーコネ', '577292', '扎科內'],
+    56: ['ゴライアス', '577291', '歌利亞斯'], 57: ['ジェスター', '577290', '傑斯塔'], 58: ['ルルディヤー', '577289', '露露蒂雅'], 59: ['フィアナ', '577288', '緋亞娜'],
+    60: ['ダイトウ', '577336', '大刀'], 61: ['ハルヴィン', '577341', '哈爾溫'], 62: ['セテス', '577340', '西提司'], 63: ['ロレッタ', '577378', '羅蕾塔'],
+    66: ['ジャスミン', '577383', '嘉絲敏'], 67: ['キロイカ', '577287', '奇洛伊卡'], 68: ['イニオニ', '577379', '易尼奧尼'], 69: ['ペペ', '577338', '佩佩']
+};
+// 英文名對應 GameWith 頭像編號
+var FACE = {
+    'Cai': 4, 'Dietrich': 5, 'Theodora': 6, 'Leda': 7, 'Tialla': 8, 'Peter': 9, 'Ultand': 10, 'Fabio': 11,
+    'Esmeralda': 12, 'Mikaela': 13, 'Bonaventure': 14, 'Tobias': 15, 'Lilian': 16, 'Lysander': 17, 'Buccar': 18,
+    'Sirocco': 19, 'Olympia': 20, 'Mu': 21, 'Gaitz': 36, 'Ursula': 37, 'Diego': 38, 'Sha Lan': 39, 'Dante': 40,
+    'Simon': 41, 'Ninae': 42, 'Nezha': 43, 'Guzran': 44, 'Nydine': 45, 'Io': 46, 'Catania': 47, 'Benditz': 48,
+    'Alexandra': 49, 'Noctula': 50, 'Yang Jie': 51, 'Sofia': 52, 'Nuzzuo': 53, 'Majide': 54, 'Zarcone': 55,
+    'Goliath': 56, 'Jester': 57, 'Ludia': 58, 'Fianna': 59, 'Dadao': 60, 'Halvin': 61, 'Seteth': 62,
+    'Loretta': 63, 'Jasmine': 66, 'Kiroc': 67, 'Inyoni': 68, 'Peppe': 69
+};
+// 格式：名稱|旗標，* 星號、x 劃線、o 圈選、l 淺色（非四路線共通）
+var ROUTES = [
+    { key: 'cai', title: "Cai's Route（41/50, 4/9 Paralogues, 0/3 Maps）" },
+    { key: 'die', title: "Dietrich's Route（44/50, 8/9 Paralogues, 2/3 Maps）" },
+    { key: 'the', title: "Theodora's Route（44/50, 7/9 Paralogues, 3/3 Maps）" },
+    { key: 'led', title: "Leda's Route（42/50, 4/9 Paralogues, 1/3 Maps）" }
+];
+var ROWS = [
+    ['Initial', [
+        ['Cai|*l', 'Tialla|*', 'Peter|*', 'Ch. 6 Ultand|*'],
+        ['Dietrich|l', 'Fabio|l', 'Esmeralda', 'Mikaela'],
+        ['Theodora|l', 'Bonaventure|l', 'Tobias|l', 'Lysander', 'Lilian'],
+        ['Leda|l', 'Buccar|*l', 'Sirocco|*', 'Mu|*', 'Olympia|*']
+    ]],
+    ['Auto', [['Guzran|o'], ['Yang Jie|*'], ['Sofia|*'], ['Catania|*l']]],
+    ['3R', [['2S Yang Jie|o'], ['2S Io'], ['1S Noctula'], ['1S Guzran']]],
+    ['4R', [['1S Noctula|*o'], ['1S Kiroc'], ['1S Zarcone'], ['2S Jasmine', '1S Kiroc|x']]],
+    ['5R', [
+        ['3S Mikaela|x', '2S Majide'],
+        ['3S Ultand|x', '2S Nydine|x'],
+        ['3S Loretta', '1S Sirocco|x', '2S Dadao', '3S Nydine|x'],
+        ['3S Loretta|*o', '3S Fianna', '2S Dadao|o', '2S Zarcone|x']
+    ]],
+    ['6R', [
+        ['3S Seteth|l', '3S Ninae|*', '3S Nezha', '1S Nydine|x', '2S Nuzzuo|*'],
+        ['3S Jester', '3S Goliath', '3S Lysander|x', '3S Olympia|x', '1S Noctula|x'],
+        ['3S Ultand|x', '3S Dante|*', '3S Seteth|lx', '3S Ninae|x', '2S Nezha|x', '1S Nuzzuo|x', '1S Alexandra'],
+        ['3S Esmeralda|x', '3S Mikaela|x', '3S Ninae|x', '3S Simon', '1S Io|x']
+    ]],
+    ['7R', [
+        ['3S Goliath|x', '3S Esmeralda|x', '3S Loretta|x', '3S Dadao|x', '2S Alexandra|*x'],
+        ['3S Ursula|l', '3S Simon', '3S Fianna', '3S Mu', '3S Zarcone', '2S Benditz'],
+        ['3S Peter|x', '3S Ludia', '3S Simon|x', '3S Halvin', '3S Catania|lx', '2S Peppe|l'],
+        ['2S Lilian|x', '3S Lysander|x', '3S Ludia|o', '3S Halvin|o', '3S Sofia|x', '3S Benditz|x', '1S Inyoni|*']
+    ]],
+    ['8R', [
+        ['2S Lilian|x', '3S Lysander|x', '3S Simon|x', '3S Fianna|*x', '3S Olympia', '3S Zarcone|x', '3S Inyoni|x', '1S Jasmine|x', '3S Kiroc|x'],
+        ['3S Peter|x', '2S Dante|x', '3S Ninae|x', '2S Lilian|x', '3S Buccar|lx', '3S Guzran|x', '1S Catania|lx', '3S Majide|x', '3S Peppe|lx', '3S Inyoni|x', '3S Alexandra|x'],
+        ['3S Mikaela|x', '2S Diego', '3S Buccar|lx', '3S Guzran|x', '3S Majide|x', '1S Benditz|x', '3S Jasmine|x'],
+        ['3S Tialla|x', '3S Ultand|x', '3S Diego|x', '3S Sha Lan|l', '3S Yang Jie|x', '3S Noctula|x']
+    ]],
+    ['9R', [
+        ['3S Ludia|x', '3S Sirocco|x', '3S Mu|x', '3S Halvin|x', '3S Sofia|x', '1S Peppe|lx', '3S Benditz|x'],
+        ['3S Tialla|x', '3S Diego|x', '3S Loretta|x', '3S Ludia|x', '3S Sirocco|x', '3S Halvin|x', '3S Sofia|x', '1S Nuzzuo|x', '3S Jasmine|x'],
+        ['3S Jester|x', '3S Goliath|x', '3S Esmeralda|x', '3S Ursula|lx', '3S Fianna|x', '3S Olympia|x', '3S Mu|x', '3S Yang Jie|x', '1S Inyoni|x'],
+        ['3S Fabio|l', '3S Nezha|x', '3S Nuzzuo|x', '3S Majide|x']
+    ]],
+    ['10R', [
+        ['3S Jester|x', '3S Dante|x', '3S Diego|x', '3S Ursula|lx', '3S Io|x', '3S Catania|lx'],
+        ['3S Gaitz|l', '3S Nezha', '3S Sha Lan|*l', '3S Dadao'],
+        ['3S Tialla|x', '3S Io|x', '3S Kiroc|x'],
+        ['3S Peter|x', '3S Jester|x', '3S Goliath|x', '3S Dante|x', '3S Seteth|l', '3S Nydine|x', '3S Alexandra|x']
+    ]],
+    ['N/A', [
+        ['Gaitz', 'Dietrich', 'Fabio', 'Theodora', 'Bonaventure', 'Tobias', 'Leda', 'Buccar', 'Sha Lan'],
+        ['#1 Cai', 'Seteth', 'Theodora', 'Bonaventure', 'Tobias', 'Leda'],
+        ['#1 Cai', 'Gaitz', 'Dietrich', 'Fabio', 'Leda', 'Sha Lan'],
+        ['Cai', 'Gaitz', 'Dietrich', 'Theodora', 'Bonaventure', 'Tobias', 'Ursula', 'Peppe']
+    ], true]
+];
+var COLS = 5;
+var STORE = 'fe-recruit-marks';
+var ORDER_STORE = 'fe-recruit-order';
+var ORDER = loadOrder();
+
+// 路線顯示順序，存的是 ROUTES 的索引
+function loadOrder() {
+    try {
+        var o = JSON.parse(localStorage.getItem(ORDER_STORE));
+        if (Array.isArray(o) && o.length === ROUTES.length && o.slice().sort().join() === '0,1,2,3') { return o; }
+    } catch (e) {}
+    return [0, 1, 2, 3];
+}
+function saveOrder() {
+    try { localStorage.setItem(ORDER_STORE, JSON.stringify(ORDER)); } catch (e) {}
+}
+function buildOrder() {
+    var html = '路線順序：';
+    ORDER.forEach(function (i, pos) {
+        var r = ROUTES[i];
+        html += '<span class="chip ' + r.key + '">'
+            + '<button data-mv="-1" data-pos="' + pos + '"' + (pos === 0 ? ' disabled' : '') + '>◀</button>'
+            + r.title.split('（')[0]
+            + '<button data-mv="1" data-pos="' + pos + '"' + (pos === ORDER.length - 1 ? ' disabled' : '') + '>▶</button></span>';
+    });
+    html += '<button class="btn" id="order-reset">恢復預設順序</button>';
+    document.getElementById('order').innerHTML = html;
+}
+
+function loadMarks() {
+    try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch (e) { return {}; }
+}
+function saveMarks(map) {
+    try { localStorage.setItem(STORE, JSON.stringify(map)); } catch (e) {}
+}
+
+function build() {
+    var saved = loadMarks();
+    var html = '<thead><tr><th class="lv"></th>';
+    ORDER.forEach(function (i) { var r = ROUTES[i]; html += '<th class="' + r.key + '" colspan="' + COLS + '">' + r.title + '</th>'; });
+    html += '</tr></thead><tbody>';
+    ROWS.forEach(function (row) {
+        var label = row[0], groups = row[1], isNA = row[2] === true;
+        var lines = Math.max.apply(null, groups.map(function (g) { return Math.ceil(g.length / COLS); }));
+        for (var ln = 0; ln < lines; ln++) {
+            html += '<tr>';
+            if (ln === 0) { html += '<th class="lv" rowspan="' + lines + '">' + label + '</th>'; }
+            ORDER.forEach(function (gi) {
+                var g = groups[gi];
+                for (var c = 0; c < COLS; c++) {
+                    var item = g[ln * COLS + c];
+                    if (item === undefined) { html += '<td class="cell blank"></td>'; continue; }
+                    var p = item.split('|'), flag = p[1] || '';
+                    var id = ROUTES[gi].key + '-' + label + '-' + (ln * COLS + c);
+                    var m = p[0].match(/^(\d+[RS]|#\d+|Ch\. \d+) (.+)$/);
+                    var req = m && /S$/.test(m[1]) === false ? m[1] : '', name = m ? m[2] : p[0];
+                    var st = saved[id] || {};
+                    var x = 'x' in st ? st.x : flag.indexOf('x') >= 0;
+                    var r = st.r === true;
+                    var s = 's' in st ? st.s : flag.indexOf('*') >= 0;
+                    var cls = 'cell ' + (isNA ? 'na' : ROUTES[gi].key);
+                    if (flag.indexOf('l') >= 0) { cls += ' l'; }
+                    if (flag.indexOf('o') >= 0) { cls += ' o'; }
+                    if (x) { cls += ' is-x'; }
+                    if (r) { cls += ' is-r'; }
+                    if (s) { cls += ' is-star'; }
+                    var face = FACE[name] ? '<img src="img/chara/chara_' + FACE[name] + '.png" alt="' + name + '">' : '<img alt="">';
+                    var ja = JA[FACE[name]];
+                    var nm = ja ? '<a href="https://gamewith.jp/fefw/' + ja[1] + '" target="_blank" title="' + name + '">' + ja[2] + '</a><small>' + ja[0] + '</small>' : name;
+                    html += '<td class="' + cls + '" data-id="' + id + '">'
+                        + '<span class="badge">★</span>'
+                        + '<div class="face">' + face + '</div>'
+                        + '<span class="nm">' + nm + '</span>'
+                        + '<span class="req">' + req + '</span>'
+                        + '<hr>'
+                        + '<div class="ck">'
+                        + '<label><input type="checkbox" data-k="x"' + (x ? ' checked' : '') + '><span class="x">✗</span></label>'
+                        + '<label><input type="checkbox" data-k="r"' + (r ? ' checked' : '') + '><span class="r">✗</span></label>'
+                        + '<label><input type="checkbox" data-k="s"' + (s ? ' checked' : '') + '><span class="s">★</span></label>'
+                        + '</div></td>';
+                }
+            });
+            html += '</tr>';
+        }
+    });
+    document.getElementById('recruit').innerHTML = html + '</tbody>';
+}
+
+document.getElementById('recruit').addEventListener('change', function (ev) {
+    var cb = ev.target;
+    var td = cb.closest('td.cell');
+    if (td === null) { return; }
+    var k = cb.dataset.k;
+    td.classList.toggle({ x: 'is-x', r: 'is-r', s: 'is-star' }[k], cb.checked);
+    var map = loadMarks();
+    map[td.dataset.id] = map[td.dataset.id] || {};
+    map[td.dataset.id][k] = cb.checked;
+    saveMarks(map);
+});
+document.getElementById('order').addEventListener('click', function (ev) {
+    var b = ev.target.closest('button');
+    if (b === null) { return; }
+    if (b.id === 'order-reset') {
+        ORDER = [0, 1, 2, 3];
+    } else {
+        var pos = Number(b.dataset.pos), to = pos + Number(b.dataset.mv);
+        var tmp = ORDER[pos]; ORDER[pos] = ORDER[to]; ORDER[to] = tmp;
+    }
+    saveOrder();
+    buildOrder();
+    build();
+});
+document.getElementById('reset').addEventListener('click', function () {
+    try { localStorage.removeItem(STORE); } catch (e) {}
+    build();
+});
+buildOrder();
+build();
+</script>
+</body>
+</html>
