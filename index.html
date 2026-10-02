@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>萬紫千紅 攻略資料</title>
 <style>
-body { margin: 0; padding: 24px 16px; background: #f4f5f7; color: #222; font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif; }
+body { margin: 0; padding: 16px; background: #f4f5f7; color: #222; font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif; }
 main { max-width: 640px; margin: 0 auto; }
 h1 { font-size: 22px; margin: 0 0 16px; }
 a.card { display: flex; align-items: center; gap: 14px; padding: 14px 16px; margin-bottom: 12px; background: #fff; border: 1px solid #ddd; border-radius: 8px; color: inherit; text-decoration: none; }
@@ -13,19 +13,86 @@ a.card:hover { border-color: #6d9eeb; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
 a.card img { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
 a.card b { display: block; font-size: 16px; color: #0b57d0; }
 a.card span { font-size: 13px; color: #666; }
+h2 { font-size: 17px; margin: 24px 0 10px; }
+.story details { background: #fff; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 8px; }
+.story summary { display: flex; align-items: center; gap: 10px; padding: 8px 12px; cursor: pointer; list-style: none; }
+.story summary::-webkit-details-marker { display: none; }
+.story summary::before { content: "▶"; color: #888; font-size: 11px; width: 12px; }
+.story details[open] summary::before { content: "▼"; }
+.story summary img { width: 36px; height: 36px; border-radius: 6px; object-fit: cover; }
+.story summary span { font-weight: bold; color: #0b57d0; }
+.story summary small { margin-left: 8px; color: #777; font-size: 12px; font-weight: normal; }
+.story summary .all { margin-left: auto; font-size: 12px; color: #0b57d0; text-decoration: none; padding: 2px 8px; border: 1px solid #c5d4ee; border-radius: 4px; }
+.story ol { list-style: none; margin: 0; padding: 4px 12px 10px 34px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px 12px; }
+.story li a { display: block; padding: 4px 6px; border-radius: 4px; color: #333; text-decoration: none; font-size: 13px; }
+.story li a:hover { background: #e3f2fd; color: #0b3d91; }
+.story li b { display: inline-block; min-width: 4.5em; color: #0b57d0; font-weight: normal; }
+.note { font-size: 13px; color: #666; margin: 4px 0 10px; }
 </style>
 </head>
 <body>
+<script src="nav.js"></script>
 <main>
     <h1>萬紫千紅 攻略資料</h1>
     <a class="card" href="角色招募表.html">
         <img src="img/chara/chara_4.png" alt="">
         <div><b>角色招募表</b><span>四條路線各階段可招募的角色，可自訂路線順序、勾選標記</span></div>
     </a>
+    <a class="card" href="角色成長率一覽.html">
+        <img src="img/chara/chara_9.png" alt="">
+        <div><b>角色成長率一覽</b><span>全角色成長率、擅長技能、各路線加入條件，可篩選與排序</span></div>
+    </a>
+    <a class="card" href="兵種一覽.html">
+        <img src="img/mount/horse.png" alt="">
+        <div><b>兵種一覽</b><span>全兵種成長率修正、可用技能、兵種與精通技能、轉職考試條件，可篩選與排序</span></div>
+    </a>
+    <a class="card" href="角色特技與魔法.html">
+        <img src="img/chara/chara_8.png" alt="">
+        <div><b>角色特技與魔法</b><span>各角色等級提升、專長提升時學會的特技與魔法</span></div>
+    </a>
     <a class="card" href="騎乘動物一覽.html">
         <img src="img/mount/horse.png" alt="">
         <div><b>騎乘動物一覽</b><span>騎乘動物的屬性加成、誘捕素材、出現地點與特技</span></div>
     </a>
+    <h2>GameWith 各篇章劇情攻略</h2>
+    <div class="note">點篇章名稱展開章節，點章節直接開啟 GameWith 該章的攻略頁（新分頁）。展開狀態會記住。</div>
+    <div class="story" id="story">
+        <details data-k="cai"><summary><img src="img/chara/chara_4.png" alt=""><span>第1部 凱伊篇<small>カイ編</small></span><a class="all" href="https://gamewith.jp/fefw/577329" target="_blank">總覽 ↗</a></summary>
+            <ol><li><a href="https://gamewith.jp/fefw/577097" target="_blank"><b>1章</b>リベイラ村の騒動</a></li><li><a href="https://gamewith.jp/fefw/577113" target="_blank"><b>2章</b>帝都への道</a></li><li><a href="https://gamewith.jp/fefw/577118" target="_blank"><b>3章</b>別れと望みと</a></li><li><a href="https://gamewith.jp/fefw/577259" target="_blank"><b>4章</b>強者たちの祭典</a></li><li><a href="https://gamewith.jp/fefw/577283" target="_blank"><b>5章</b>カイの戦い</a></li><li><a href="https://gamewith.jp/fefw/577387" target="_blank"><b>6章</b>キュベレーの地へ</a></li><li><a href="https://gamewith.jp/fefw/577587" target="_blank"><b>7章</b>それぞれの思惑</a></li><li><a href="https://gamewith.jp/fefw/577609" target="_blank"><b>8章</b>譲れぬ思い</a></li><li><a href="https://gamewith.jp/fefw/577613" target="_blank"><b>9章</b>アウロラ神殿の怪事件</a></li><li><a href="https://gamewith.jp/fefw/577621" target="_blank"><b>10章</b>大切な時間</a></li><li><a href="https://gamewith.jp/fefw/577756" target="_blank"><b>11章</b>ダグザの大釜</a></li><li><a href="https://gamewith.jp/fefw/577780" target="_blank"><b>12章</b>ひとつだけの願い</a></li></ol>
+        </details>
+        <details data-k="die"><summary><img src="img/chara/chara_5.png" alt=""><span>第1部 迪托利希篇<small>ディートリヒ編</small></span><a class="all" href="https://gamewith.jp/fefw/577330" target="_blank">總覽 ↗</a></summary>
+            <ol><li><a href="https://gamewith.jp/fefw/577098" target="_blank"><b>1章</b>ダグザの異邦人</a></li><li><a href="https://gamewith.jp/fefw/577119" target="_blank"><b>2章</b>生贄騒動</a></li><li><a href="https://gamewith.jp/fefw/577167" target="_blank"><b>3章</b>偉大なる石標</a></li><li><a href="https://gamewith.jp/fefw/577268" target="_blank"><b>4章</b>実力行使</a></li><li><a href="https://gamewith.jp/fefw/577334" target="_blank"><b>5章</b>戦士の流儀</a></li><li><a href="https://gamewith.jp/fefw/577371" target="_blank"><b>6章</b>本能と理性と</a></li><li><a href="https://gamewith.jp/fefw/577386" target="_blank"><b>7章</b>薔薇の月、見上げて</a></li><li><a href="https://gamewith.jp/fefw/577524" target="_blank"><b>8章</b>海王ケートゥス</a></li><li><a href="https://gamewith.jp/fefw/577614" target="_blank"><b>9章</b>白き卵の伝説</a></li><li><a href="https://gamewith.jp/fefw/577620" target="_blank"><b>10章</b>ジョカの調停者</a></li><li><a href="https://gamewith.jp/fefw/577812" target="_blank"><b>11章</b>歪んだ愛</a></li><li><a href="https://gamewith.jp/fefw/577859" target="_blank"><b>12章</b>軍神マーズ</a></li></ol>
+        </details>
+        <details data-k="the"><summary><img src="img/chara/chara_6.png" alt=""><span>第1部 賽奧朵拉篇<small>セオドラ編</small></span><a class="all" href="https://gamewith.jp/fefw/577331" target="_blank">總覽 ↗</a></summary>
+            <ol><li><a href="https://gamewith.jp/fefw/577099" target="_blank"><b>1章</b>鉄の女セオドラ</a></li><li><a href="https://gamewith.jp/fefw/577182" target="_blank"><b>2章</b>ダヤンの乱</a></li><li><a href="https://gamewith.jp/fefw/577227" target="_blank"><b>3章</b>帝都の喧騒</a></li><li><a href="https://gamewith.jp/fefw/577199" target="_blank"><b>4章</b>奇妙な共闘者たち</a></li><li><a href="https://gamewith.jp/fefw/577284" target="_blank"><b>5章</b>因縁の激突</a></li><li><a href="https://gamewith.jp/fefw/577377" target="_blank"><b>6章</b>財宝狩り事件</a></li><li><a href="https://gamewith.jp/fefw/577385" target="_blank"><b>7章</b>昏き場所からの声</a></li><li><a href="https://gamewith.jp/fefw/577541" target="_blank"><b>8章</b>トロイアを訪ねて</a></li><li><a href="https://gamewith.jp/fefw/577612" target="_blank"><b>9章</b>禁断の地へ</a></li><li><a href="https://gamewith.jp/fefw/577803" target="_blank"><b>10章</b>女王と大商人</a></li><li><a href="https://gamewith.jp/fefw/577808" target="_blank"><b>11章</b>急転</a></li><li><a href="https://gamewith.jp/fefw/577849" target="_blank"><b>12章</b>ザンジバル戦役</a></li></ol>
+        </details>
+        <details data-k="led"><summary><img src="img/chara/chara_7.png" alt=""><span>第1部 蕾達篇<small>レダ編</small></span><a class="all" href="https://gamewith.jp/fefw/577332" target="_blank">總覽 ↗</a></summary>
+            <ol><li><a href="https://gamewith.jp/fefw/577100" target="_blank"><b>1章</b>復讐の舞姫</a></li><li><a href="https://gamewith.jp/fefw/577111" target="_blank"><b>2章</b>コーラス鉱山の戦い</a></li><li><a href="https://gamewith.jp/fefw/577117" target="_blank"><b>3章</b>カエルスの薔薇</a></li><li><a href="https://gamewith.jp/fefw/577179" target="_blank"><b>4章</b>消えない過去</a></li><li><a href="https://gamewith.jp/fefw/577335" target="_blank"><b>5章</b>女たちの戦い</a></li><li><a href="https://gamewith.jp/fefw/577384" target="_blank"><b>6章</b>天駆ける乙女</a></li><li><a href="https://gamewith.jp/fefw/577485" target="_blank"><b>7章</b>逆襲の薔薇</a></li><li><a href="https://gamewith.jp/fefw/577554" target="_blank"><b>8章</b>陰謀の形</a></li><li><a href="https://gamewith.jp/fefw/577610" target="_blank"><b>9章</b>相容れぬ者達</a></li><li><a href="https://gamewith.jp/fefw/577618" target="_blank"><b>10章</b>父の望み、娘の願い</a></li><li><a href="https://gamewith.jp/fefw/577809" target="_blank"><b>11章</b>亡者の晩餐会</a></li><li><a href="https://gamewith.jp/fefw/577810" target="_blank"><b>12章</b>復讐の結末</a></li></ol>
+        </details>
+        <details data-k="p2"><summary><img src="img/chara/chara_9.png" alt=""><span>第2部 戰爭篇<small>戦争編</small></span><a class="all" href="https://gamewith.jp/fefw/577891" target="_blank">總覽 ↗</a></summary>
+            <ol><li><a href="https://gamewith.jp/fefw/577886" target="_blank"><b>1章</b>クリュテイオス平原の会戦</a></li><li><a href="https://gamewith.jp/fefw/577903" target="_blank"><b>2章</b>アグリス関の死闘</a></li><li><a href="https://gamewith.jp/fefw/577921" target="_blank"><b>3章</b>塩の道を超えて</a></li><li><a href="https://gamewith.jp/fefw/577931" target="_blank"><b>4章</b>ダグシオン突入戦</a></li><li><a href="https://gamewith.jp/fefw/577922" target="_blank"><b>5章</b>神威大帝ダグザ</a></li><li><a href="https://gamewith.jp/fefw/577937" target="_blank"><b>6章</b>冥界の受肉</a></li></ol>
+        </details>
+        <details data-k="p3"><summary><img src="img/chara/chara_1.png" alt=""><span>第3部 救世篇<small>救世編</small></span><a class="all" href="https://gamewith.jp/fefw/577934" target="_blank">總覽 ↗</a></summary>
+            <ol><li><a href="https://gamewith.jp/fefw/577936" target="_blank"><b>1區分</b>ダグシオン解放</a></li><li><a href="https://gamewith.jp/fefw/577971" target="_blank"><b>2區分</b>力の意味</a></li><li><a href="https://gamewith.jp/fefw/578066" target="_blank"><b>3區分</b>受け継ぎしものたち</a></li><li><a href="https://gamewith.jp/fefw/578012" target="_blank"><b>4區分</b>王の想い、人の重い</a></li><li><a href="https://gamewith.jp/fefw/578269" target="_blank"><b>5區分</b>生者たちの唄</a></li><li><a href="https://gamewith.jp/fefw/578374" target="_blank"><b>6區分</b>黄昏の果てへ</a></li></ol>
+        </details>
+        <details data-k="gd"><summary><img src="img/chara/chara_22.png" alt=""><span>外傳<small>外伝</small></span><a class="all" href="https://gamewith.jp/fefw/577815" target="_blank">總覽 ↗</a></summary>
+            <ol><li><a href="https://gamewith.jp/fefw/577861" target="_blank"><b>凱伊外傳</b>大脱走</a></li><li><a href="https://gamewith.jp/fefw/577853" target="_blank"><b>迪托利希外傳</b>封じられた過去</a></li><li><a href="https://gamewith.jp/fefw/577869" target="_blank"><b>賽奧朵拉外傳</b>勇士の像の行方</a></li><li><a href="https://gamewith.jp/fefw/577847" target="_blank"><b>蕾達外傳</b>陽動作戦</a></li><li><a href="https://gamewith.jp/fefw/577839" target="_blank"><b>貝特蘭外傳</b>ブリギット王の親善試合</a></li><li><a href="https://gamewith.jp/fefw/577619" target="_blank"><b>譚利穆恩外傳</b>消えた馬車の秘密</a></li><li><a href="https://gamewith.jp/fefw/577863" target="_blank"><b>歐露赫露外傳</b>オルヘルの心残り</a></li><li><a href="https://gamewith.jp/fefw/577885" target="_blank"><b>愛娜特莉亞外傳</b>抹消された者たちの女王</a></li><li><a href="https://gamewith.jp/fefw/577829" target="_blank"><b>アンナ外傳</b>黄金色の秘密</a></li></ol>
+        </details>
+    </div>
 </main>
+<script>
+// 記住各篇章的展開狀態
+(function () {
+    var KEY = 'fe-index-open', st = {};
+    try { st = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+    document.querySelectorAll('#story details').forEach(function (d) {
+        d.open = st[d.dataset.k] === true;
+        d.addEventListener('toggle', function () {
+            st[d.dataset.k] = d.open;
+            try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
+        });
+    });
+})();
+</script>
 </body>
 </html>
