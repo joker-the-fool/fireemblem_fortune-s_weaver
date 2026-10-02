@@ -26,38 +26,87 @@ tr.gw-row td.name.hl { background: #ffe066; }
 .red { color: #d00; font-weight: bold; }
 .pl { display: inline-block; vertical-align: top; }
 .pl small { display: block; color: #777; font-size: 11px; }
+.filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 14px; }
+.filter label { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #fff; border: 1px solid #bbb; border-radius: 4px; cursor: pointer; }
+.filter label img { width: 20px; height: 20px; border-radius: 3px; }
+.filter button { padding: 3px 8px; border: 1px solid #999; background: #fff; border-radius: 4px; cursor: pointer; }
 .tag { display: inline-block; padding: 0 6px; border-radius: 3px; background: #e3f2fd; border: 1px solid #90caf9; font-size: 12px; }
 </style>
 </head>
 <body>
+<script src="nav.js"></script>
 <h1>萬紫千紅 騎乘動物一覽</h1>
 <div class="note">
     括號內為滿級時的數值。名稱底色為黃色的是原圖標記的項目。<br>
     <span class="tag">淺藍底</span>＝原圖沒有、從 GameWith 補上的資料（整列淺藍＝原圖沒有的動物）。「救世編」表示救世編才能捕獲。
 </div>
+<div class="filter" id="filter">顯示類別：</div>
 <div class="wrap"><table>
-    <thead><tr><th>名稱</th><th>類別</th><th>屬性加成（滿級）</th><th>投餵誘捕素材</th><th>喜好蔬菜</th><th>地點</th><th>特技</th></tr></thead>
+    <thead><tr><th>名稱</th><th>類別</th><th>屬性加成（滿級）</th><th>成長率加成（%）</th><th>投餵誘捕素材</th><th>喜好蔬菜</th><th>地點</th><th>特技</th></tr></thead>
     <tbody>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578282" target="_blank">野生馬</a><small>野生の馬</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">2技 1防 1速（4級）</td><td class="nw">甜口 蔬菜</td><td>尤那魅、椰棗、亞曼菊</td><td><span class="pl">落日之路<small>落ち日の道</small></span>、<span class="pl">奧雷安斯平原<small>オレアンス平原</small></span></td><td>聯合喚起【騎兵】必避+5（10）<br>聯合疾行【騎兵】移動力+1（2）</td></tr>
-        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578289" target="_blank">汗血馬</a><small>汗血馬</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">2力 2防 1技</td><td class="nw">辣口 蔬菜</td><td>庫勒司妥露、夏庫托、洛卡、龍舌蘭</td><td><span class="pl">落日之路<small>落ち日の道</small></span></td><td>聯合戰技集中：【騎兵】使用戰技攻擊時，命中+10（15）。<br><span class="red">再移動：【騎兵】戰鬥後，最多可再移動1（2）格。</span><br>聯合猛戰技：【騎兵】使用戰技攻擊時，攻擊力+2（4）。</td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578288" target="_blank">莫諾凱洛斯</a><small>モノケロース</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">3幸 1技 1速</td><td class="nw">珍饈 蔬菜</td><td>派芽</td><td><span class="pl">奧雷安斯平原<small>オレアンス平原</small></span></td><td>聯合奇蹟：【騎兵】幸運+3（5）。<br>聯合治癒：【騎兵】戰鬥後，小（中）幅回復自己的HP。</td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578283" target="_blank">野生歐魯尼烏斯</a><small>野生のオルニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">2速 3技</td><td class="nw">甜口 魚</td><td></td><td><span class="pl">法羅之森<small>ファロの森</small></span>、<span class="pl">雀躍之徑<small>雀躍の辻</small></span></td><td>聯合隱密：【騎兵】戰鬥時，若自己處於有利地形，迴避+10（防禦力+3）。<br>聯合疾行【騎兵】移動力+1（2）</td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578284" target="_blank">白羽歐魯尼烏斯</a><small>白羽のオルニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">1速 1技 3魔防</td><td class="nw">甜口 魚</td><td></td><td><span class="pl">法羅之森<small>ファロの森</small></span></td><td>聯合治癒：【騎兵】戰鬥後，小（中）幅回復自己的HP。<br>聯合淨化：【騎兵】自己的行動階段開始時，有50%（100%）機率發動。解除自己的中毒狀態。</td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578286" target="_blank">美加尼烏斯</a><small>メガニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">3防 1技 1力</td><td class="nw">辣口 魚</td><td></td><td><span class="pl">雀躍之徑<small>雀躍の辻</small></span></td><td>聯合巨軀：【騎兵】體格+2（4）。<br>聯合疾行：【騎兵】移動力+1（2）</td></tr>
-        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578294" target="_blank">瑪吉尼烏斯</a><small>マジニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw gw">3魔 2技</td><td class="nw gw">苦口 魚</td><td></td><td class="gw"><span class="pl">獵首岩<small>首狩り岩</small></span>、<span class="pl">沙漠入口<small>砂漠の入口</small></span>、<span class="pl">塔爾博斯平原<small>タルボス平原</small></span></td><td class="gw">聯合疾行：【騎兵】移動力+1（2）<br>聯合魔法集中：【騎兵】裝備魔法時，命中+10（15）。</td></tr>
-        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578287" target="_blank">紅羽美加尼烏斯</a><small>赤羽のメガニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">3力 1防 1技</td><td class="nw">辣口 魚</td><td></td><td><span class="pl">亞庫席翁溪谷<small>アクシオン渓谷</small></span></td><td>聯合疾行：【騎兵】移動力+1（2）<br>聯合防護：【騎兵】受到必殺的一擊時，受到的傷害減少至70（50）%。</td></tr>
-        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578428" target="_blank">黑羽瑪吉尼烏斯</a><small>黒羽のマジニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">2魔 2速 1技</td><td class="nw">苦口 魚</td><td></td><td><span class="pl">獵首岩<small>首狩り岩</small></span></td><td><span class="red">聯合魔法尖銳：【騎兵】裝備魔法時，必殺+5（10）。</span><br><span class="gw">再移動：【騎兵】戰鬥後，最多可再移動1（2）格。</span></td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578290" target="_blank">野生飛馬</a><small>野生のペガサス</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">2速 1魔防（3級）</td><td class="nw">甜口 蔬菜</td><td></td><td>天馬岩、<span class="pl">巨鳥之頸<small>巨鳥の頸</small></span>、<span class="pl">黑翼之谷<small>黒翼の谷</small></span></td><td>聯合對魔：【飛行】戰鬥時，若敵人裝備魔法，攻擊力+3（5）。<br>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578285" target="_blank">聖飛馬</a><small>ファルコン</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">3速 2魔防</td><td class="nw">珍饈 蔬菜</td><td></td><td>天馬岩、<span class="pl">巨鳥之頸<small>巨鳥の頸</small></span><span class="gw">、<span class="pl">不止風之濱<small>風止まずの浜</small></span></span></td><td>飛行再移動：【飛行】戰鬥後，最多可再移動1格<span class="gw">（2格）</span></td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578291" target="_blank">暗飛馬</a><small>ダークペガサス</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">3魔 2速</td><td class="nw">苦口 蔬菜</td><td></td><td><span class="pl">黑翼之谷<small>黒翼の谷</small></span></td><td>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578312" target="_blank">布克發拉斯</a><small>ブーケパラス</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">1力 2魔防 3速</td><td class="nw">甜口 蔬菜</td><td><b>金芭蕉</b></td><td><span class="pl">亞歷珊德拉<small>アレキサンドラ</small></span> 招募自帶</td><td>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
-        <tr><td class="name"><a href="https://gamewith.jp/fefw/578292" target="_blank">野生巴烏</a><small>野生のバウ</small></td><td class="type"><img src="img/mount/wyvern.png" alt="">飛龍</td><td class="nw">2力 1速 2技</td><td class="nw">甜口 肉</td><td></td><td class="gw"><span class="pl">喚龍岬<small>竜呼びの岬</small></span>、<span class="pl">矢代砦<small>ヤシロ砦</small></span>、<span class="pl">戰士之道<small>戦士の道</small></span>、<span class="pl">席德姆之谷<small>シデムの谷</small></span></td><td class="gw">聯合猛戰技：【騎兵】使用戰技攻擊時，攻擊力+2（4）。<br>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
-        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578293" target="_blank">紅巴烏</a><small>レッドバウ</small></td><td class="type"><img src="img/mount/wyvern.png" alt="">飛龍</td><td class="nw">3力 2技</td><td class="nw">辣口 肉</td><td></td><td><span class="pl">矢代砦<small>ヤシロ砦</small></span>（稀有，救世編）</td><td>聯合戰技集中：【飛行】使用戰技攻擊時，命中+10（15）。<br>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
-        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578457" target="_blank">羅西南</a><small>ロシナン</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">1速 3技 2防</td><td class="nw">甜口 蔬菜</td><td></td><td><span class="pl">伊歐<small>イオ</small></span> 招募自帶</td><td>聯合疾行：【騎兵】移動力+1（2）</td></tr>
-        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578465" target="_blank">黑巴烏</a><small>ブラックバウ</small></td><td class="type"><img src="img/mount/wyvern.png" alt="">飛龍</td><td class="nw">2力 3速</td><td class="nw">苦口 肉</td><td></td><td><span class="pl">戰士之道<small>戦士の道</small></span>、<span class="pl">席德姆之谷<small>シデムの谷</small></span>（稀有，救世編）</td><td>聯合強韌：【飛行】受到有效・特效攻擊時，受到的傷害減少至70%（減半）。</td></tr>
-        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578464" target="_blank">黑馬</a><small>黒馬</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">1力 3速 1技</td><td class="nw">苦口 蔬菜</td><td></td><td><span class="pl">戴莫斯台地<small>ダイモス台地</small></span>（稀有，救世編）</td><td>再移動：【騎兵】戰鬥後，最多可再移動1（2）格。<br>聯合疾行：【騎兵】移動力+1（2）</td></tr>
-        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578535" target="_blank">紅隼</a><small>レッドファルコン</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">2力 2速 1技</td><td class="nw">辣口 蔬菜</td><td></td><td><span class="pl">不止風之濱<small>風止まずの浜</small></span>（稀有，救世編）</td><td>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578282" target="_blank">野生馬</a><small>野生の馬</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">2技 1防 1速（4級）</td><td class="nw gw">HP+5 速+5 技+5 防+5 魔防+5</td><td class="nw">甜口 蔬菜</td><td>尤那魅、椰棗、亞曼菊</td><td><span class="pl">落日之路<small>落ち日の道</small></span>、<span class="pl">奧雷安斯平原<small>オレアンス平原</small></span></td><td>聯合喚起【騎兵】必避+5（10）<br>聯合疾行【騎兵】移動力+1（2）</td></tr>
+        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578289" target="_blank">汗血馬</a><small>汗血馬</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">2力 2防 1技</td><td class="nw gw">HP+5 力+5 技+5 防+10</td><td class="nw">辣口 蔬菜</td><td>庫勒司妥露、夏庫托、洛卡、龍舌蘭</td><td><span class="pl">落日之路<small>落ち日の道</small></span></td><td>聯合戰技集中：【騎兵】使用戰技攻擊時，命中+10（15）。<br><span class="red">再移動：【騎兵】戰鬥後，最多可再移動1（2）格。</span><br>聯合猛戰技：【騎兵】使用戰技攻擊時，攻擊力+2（4）。</td></tr>
+        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578464" target="_blank">黑馬</a><small>黒馬</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">1力 3速 1技</td><td class="nw gw">HP+5 力+5 速+10 技+5</td><td class="nw">苦口 蔬菜</td><td></td><td><span class="pl">戴莫斯台地<small>ダイモス台地</small></span>、<span class="pl">沙之小徑<small>砂の抜け道</small></span>（稀有，救世編）</td><td>再移動：【騎兵】戰鬥後，最多可再移動1（2）格。<br>聯合疾行：【騎兵】移動力+1（2）</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578288" target="_blank">莫諾凱洛斯</a><small>モノケロース</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">3幸 1技 1速</td><td class="nw gw">HP+5 速+5 技+5 魔防+10</td><td class="nw">珍饈 蔬菜</td><td>派芽</td><td><span class="pl">奧雷安斯平原<small>オレアンス平原</small></span></td><td>聯合奇蹟：【騎兵】幸運+3（5）。<br>聯合治癒：【騎兵】戰鬥後，小（中）幅回復自己的HP。</td></tr>
+        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578457" target="_blank">羅西南</a><small>ロシナン</small></td><td class="type"><img src="img/mount/horse.png" alt="">馬</td><td class="nw">1速 3技 2防</td><td class="nw gw">HP+5 速+5 技+5 防+10 魔防+5</td><td class="nw">甜口 蔬菜</td><td></td><td><span class="pl">伊歐<small>イオ</small></span> 招募自帶</td><td>聯合疾行：【騎兵】移動力+1（2）</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578283" target="_blank">野生歐魯尼烏斯</a><small>野生のオルニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">2速 3技</td><td class="nw gw">速+10 技+15</td><td class="nw">甜口 魚</td><td></td><td><span class="pl">法羅之森<small>ファロの森</small></span>、<span class="pl">雀躍之徑<small>雀躍の辻</small></span></td><td>聯合隱密：【騎兵】戰鬥時，若自己處於有利地形，迴避+10（防禦力+3）。<br>聯合疾行【騎兵】移動力+1（2）</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578284" target="_blank">白羽歐魯尼烏斯</a><small>白羽のオルニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">1速 1技 3魔防</td><td class="nw gw">速+5 技+5 魔防+15</td><td class="nw">甜口 魚</td><td></td><td><span class="pl">法羅之森<small>ファロの森</small></span></td><td>聯合治癒：【騎兵】戰鬥後，小（中）幅回復自己的HP。<br>聯合淨化：【騎兵】自己的行動階段開始時，有50%（100%）機率發動。解除自己的中毒狀態。</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578286" target="_blank">美加尼烏斯</a><small>メガニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">3防 1技 1力</td><td class="nw gw">力+5 技+5 防+15</td><td class="nw">辣口 魚</td><td></td><td><span class="pl">雀躍之徑<small>雀躍の辻</small></span></td><td>聯合巨軀：【騎兵】體格+2（4）。<br>聯合疾行：【騎兵】移動力+1（2）</td></tr>
+        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578294" target="_blank">瑪吉尼烏斯</a><small>マジニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw gw">3魔 2技</td><td class="nw gw">魔+15 技+10</td><td class="nw gw">苦口 魚</td><td></td><td class="gw"><span class="pl">獵首岩<small>首狩り岩</small></span>、<span class="pl">沙漠入口<small>砂漠の入口</small></span>、<span class="pl">塔爾博斯平原<small>タルボス平原</small></span></td><td class="gw">聯合疾行：【騎兵】移動力+1（2）<br>聯合魔法集中：【騎兵】裝備魔法時，命中+10（15）。</td></tr>
+        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578287" target="_blank">紅羽美加尼烏斯</a><small>赤羽のメガニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">3力 1防 1技</td><td class="nw gw">力+15 技+5 防+5</td><td class="nw">辣口 魚</td><td></td><td><span class="pl">亞庫席翁溪谷<small>アクシオン渓谷</small></span></td><td>聯合疾行：【騎兵】移動力+1（2）<br>聯合防護：【騎兵】受到必殺的一擊時，受到的傷害減少至70（50）%。</td></tr>
+        <tr><td class="name hl"><a href="https://gamewith.jp/fefw/578428" target="_blank">黑羽瑪吉尼烏斯</a><small>黒羽のマジニウス</small></td><td class="type"><img src="img/mount/ornis.png" alt="">飛駝</td><td class="nw">2魔 2速 1技</td><td class="nw gw">魔+10 速+10 技+5</td><td class="nw">苦口 魚</td><td></td><td><span class="pl">獵首岩<small>首狩り岩</small></span></td><td><span class="red">聯合魔法尖銳：【騎兵】裝備魔法時，必殺+5（10）。</span><br><span class="gw">再移動：【騎兵】戰鬥後，最多可再移動1（2）格。</span></td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578290" target="_blank">野生飛馬</a><small>野生のペガサス</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">2速 1魔防（3級）</td><td class="nw gw">速+15 魔防+10</td><td class="nw">甜口 蔬菜</td><td></td><td>天馬岩、<span class="pl">巨鳥之頸<small>巨鳥の頸</small></span>、<span class="pl">黑翼之谷<small>黒翼の谷</small></span></td><td>聯合對魔：【飛行】戰鬥時，若敵人裝備魔法，攻擊力+3（5）。<br>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578285" target="_blank">聖飛馬</a><small>ファルコン</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">3速 2魔防</td><td class="nw gw">力+5 速+15 技+5</td><td class="nw">珍饈 蔬菜</td><td></td><td>天馬岩、<span class="pl">巨鳥之頸<small>巨鳥の頸</small></span><span class="gw">、<span class="pl">不止風之濱<small>風止まずの浜</small></span></span></td><td>飛行再移動：【飛行】戰鬥後，最多可再移動1格<span class="gw">（2格）</span></td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578291" target="_blank">暗飛馬</a><small>ダークペガサス</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">3魔 2速</td><td class="nw gw">魔+15 速+10</td><td class="nw">苦口 蔬菜</td><td></td><td><span class="pl">黑翼之谷<small>黒翼の谷</small></span></td><td>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578312" target="_blank">布克發拉斯</a><small>ブーケパラス</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">1力 2魔防 3速</td><td class="nw gw">力+5 速+15 魔防+10</td><td class="nw">甜口 蔬菜</td><td><b>金芭蕉</b></td><td><span class="pl">亞歷珊德拉<small>アレキサンドラ</small></span> 招募自帶</td><td>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
+        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578535" target="_blank">紅隼</a><small>レッドファルコン</small></td><td class="type"><img src="img/mount/pegasus.png" alt="">天馬</td><td class="nw">2力 2速 1技</td><td class="nw gw">力+10 速+10 技+5</td><td class="nw">辣口 蔬菜</td><td></td><td><span class="pl">不止風之濱<small>風止まずの浜</small></span>（稀有，救世編）</td><td>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
+        <tr><td class="name"><a href="https://gamewith.jp/fefw/578292" target="_blank">野生巴烏</a><small>野生のバウ</small></td><td class="type"><img src="img/mount/wyvern.png" alt="">飛龍</td><td class="nw">2力 1速 2技</td><td class="nw gw">力+10 速+5 技+10</td><td class="nw">甜口 肉</td><td></td><td class="gw"><span class="pl">喚龍岬<small>竜呼びの岬</small></span>、<span class="pl">矢代砦<small>ヤシロ砦</small></span>、<span class="pl">戰士之道<small>戦士の道</small></span>、<span class="pl">席德姆之谷<small>シデムの谷</small></span>、<span class="pl">貝拉特里之谷<small>ベラトリの谷</small></span></td><td class="gw">聯合猛戰技：【騎兵】使用戰技攻擊時，攻擊力+2（4）。<br>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
+        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578293" target="_blank">紅巴烏</a><small>レッドバウ</small></td><td class="type"><img src="img/mount/wyvern.png" alt="">飛龍</td><td class="nw">3力 2技</td><td class="nw gw">力+15 技+10</td><td class="nw">辣口 肉</td><td></td><td><span class="pl">矢代砦<small>ヤシロ砦</small></span>（稀有，救世編）</td><td>聯合戰技集中：【飛行】使用戰技攻擊時，命中+10（15）。<br>聯合飛翔：【飛行】移動力+1（2）。</td></tr>
+        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578465" target="_blank">黑巴烏</a><small>ブラックバウ</small></td><td class="type"><img src="img/mount/wyvern.png" alt="">飛龍</td><td class="nw">2力 3速</td><td class="nw gw">力+10 速+15</td><td class="nw">苦口 肉</td><td></td><td><span class="pl">戰士之道<small>戦士の道</small></span>、<span class="pl">席德姆之谷<small>シデムの谷</small></span>（稀有，救世編）</td><td>聯合強韌：【飛行】受到有效・特效攻擊時，受到的傷害減少至70%（減半）。</td></tr>
+        <tr class="gw-row"><td class="name"><a href="https://gamewith.jp/fefw/578911" target="_blank">薩拉米斯戰象</a><small>サラミス戦象</small></td><td class="type"><img src="https://img.gamewith.jp/img/0b28edbc4e84a9495e83a1d83ae4bbf0.png" alt="">象</td><td class="nw">5力 5技 5防 5幸</td><td class="nw gw">HP+10 力+10 技+10 防+10 魔防+10</td><td class="nw">珍饈 蔬菜</td><td></td><td>支線「戦象乗りの絆」報酬</td><td>聯合大移動：【騎兵】移動力+1（2）</td></tr>
     </tbody>
 </table></div>
+<script>
+// 依類別顯示／隱藏動物，勾選狀態記在瀏覽器裡
+(function () {
+    var STORE = 'fe-mount-hidden';
+    var rows = [].slice.call(document.querySelectorAll('tbody tr'));
+    var types = [], icon = {};
+    rows.forEach(function (tr) {
+        var td = tr.querySelector('td.type');
+        var t = td.textContent.trim();
+        tr.dataset.type = t;
+        if (types.indexOf(t) < 0) { types.push(t); icon[t] = td.querySelector('img').getAttribute('src'); }
+    });
+    var hidden = {};
+    try { hidden = JSON.parse(localStorage.getItem(STORE)) || {}; } catch (e) {}
+    var box = document.getElementById('filter');
+    types.forEach(function (t) {
+        var lb = document.createElement('label');
+        lb.innerHTML = '<input type="checkbox" value="' + t + '"' + (hidden[t] === true ? '' : ' checked') + '><img src="' + icon[t] + '" alt="">' + t;
+        box.appendChild(lb);
+    });
+    box.insertAdjacentHTML('beforeend', '<button type="button" data-act="all">全選</button><button type="button" data-act="none">全不選</button>');
+    function apply() {
+        rows.forEach(function (tr) { tr.style.display = hidden[tr.dataset.type] === true ? 'none' : ''; });
+        try { localStorage.setItem(STORE, JSON.stringify(hidden)); } catch (e) {}
+    }
+    box.addEventListener('change', function (ev) {
+        var t = ev.target.value;
+        if (ev.target.checked) { delete hidden[t]; } else { hidden[t] = true; }
+        apply();
+    });
+    box.addEventListener('click', function (ev) {
+        var act = ev.target.dataset && ev.target.dataset.act;
+        if (act === undefined) { return; }
+        box.querySelectorAll('input').forEach(function (cb) {
+            cb.checked = act === 'all';
+            if (cb.checked) { delete hidden[cb.value]; } else { hidden[cb.value] = true; }
+        });
+        apply();
+    });
+    apply();
+})();
+</script>
 </body>
 </html>

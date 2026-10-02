@@ -24,11 +24,12 @@ h1 { font-size: 20px; margin: 0 0 8px; }
 .chip button { border: 1px solid #888; background: #fff; border-radius: 3px; cursor: pointer; padding: 0 5px; font-size: 11px; }
 .chip button:disabled { opacity: .3; cursor: default; }
 .wrap { overflow-x: auto; }
-table { border-collapse: collapse; background: var(--empty); }
+/* 表格寬度固定為畫面寬，格子平均分配，不再超出畫面 */
+table { border-collapse: collapse; background: var(--empty); width: 100%; table-layout: fixed; }
 th, td { border: 1px solid var(--line); }
-thead th { padding: 6px 8px; font-weight: normal; font-size: 13px; position: sticky; top: 0; z-index: 2; }
-th.lv { background: #fff; width: 48px; font-weight: normal; }
-td.cell { width: 88px; padding: 4px 3px 3px; text-align: center; vertical-align: top; position: relative; }
+thead th { padding: 4px 4px; font-weight: normal; font-size: 12px; position: sticky; top: 0; z-index: 2; }
+th.lv { background: #fff; width: 40px; font-weight: normal; font-size: 12px; }
+td.cell { padding: 3px 2px 2px; overflow: hidden; text-align: center; vertical-align: top; position: relative; }
 td.blank { background: var(--empty); }
 td.cai { background: var(--cai); } td.cai.l { background: var(--cai-l); }
 td.die { background: var(--die); } td.die.l { background: var(--die-l); }
@@ -36,19 +37,27 @@ td.the { background: var(--the); } td.the.l { background: var(--the-l); }
 td.led { background: var(--led); } td.led.l { background: var(--led-l); }
 td.na { background: #d9d9d9; }
 th.cai { background: var(--cai-l); } th.die { background: var(--die-l); } th.the { background: var(--the-l); } th.led { background: var(--led-l); }
-td.cell img { display: block; width: 60px; height: 60px; margin: 0 auto; object-fit: cover; border-radius: 4px; background: rgba(0,0,0,.08); }
-td.cell .nm { display: block; font-size: 12px; line-height: 1.3; margin-top: 2px; }
+td.cell img { display: block; width: 100%; max-width: 56px; height: auto; aspect-ratio: 1; margin: 0 auto; object-fit: cover; border-radius: 4px; background: rgba(0,0,0,.08); }
+td.cell .nm { display: block; font-size: 12px; line-height: 1.25; margin-top: 2px; overflow-wrap: anywhere; }
 td.cell .req { display: block; font-size: 11px; line-height: 1.2; color: #333; min-height: 13px; }
 td.cell hr { border: 0; border-top: 1px solid rgba(0,0,0,.35); margin: 3px 2px; }
-td.cell .ck { display: flex; justify-content: center; gap: 6px; font-size: 12px; }
+td.cell .ck { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 3px; font-size: 11px; }
 td.cell .ck label { cursor: pointer; white-space: nowrap; }
-td.cell .ck input { margin: 0 2px 0 0; vertical-align: -2px; }
+td.cell .ck input { margin: 0 1px 0 0; vertical-align: -2px; width: 12px; height: 12px; }
 td.cell .ck .x { color: #1565c0; font-weight: bold; }
 td.cell .ck .r { color: #d00; font-weight: bold; }
 td.cell .ck .s { color: #e00; }
 td.cell .nm a { color: #0b3d91; text-decoration: none; font-weight: bold; }
 td.cell .nm a:hover { text-decoration: underline; }
-td.cell .nm small { display: block; font-size: 10px; color: #444; line-height: 1.2; }
+td.cell .nm small { display: block; font-size: 10px; color: #444; line-height: 1.2; overflow-wrap: anywhere; }
+td.cell .sc { cursor: pointer; color: #0b3d91; border-bottom: 1px dotted #0b3d91; }
+td.cell .sc:hover, td.cell .sc.on { background: #e3f2fd; }
+#pop { position: absolute; z-index: 10; display: none; width: 340px; padding: 8px 10px; background: #fff; border: 1px solid #90caf9; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,.18); font-size: 13px; line-height: 1.6; text-align: left; }
+#pop b { display: block; color: #0b3d91; margin-bottom: 4px; }
+#pop table { width: 100%; margin-top: 6px; border-collapse: collapse; background: #fff; font-size: 12px; }
+#pop th, #pop td { border: 1px solid #ddd; padding: 2px 4px; vertical-align: top; font-weight: normal; position: static; }
+#pop th { background: #f0f4f8; white-space: nowrap; }
+#pop tr.cur td, #pop tr.cur th { background: #fff8d6; }
 td.cell .badge { position: absolute; top: 1px; right: 3px; color: #e00; font-size: 18px; line-height: 1; display: none; text-shadow: 0 0 2px #fff; }
 td.cell.is-star .badge { display: block; }
 td.cell.is-x .face img, td.cell.is-r .face img { opacity: .4; }
@@ -58,6 +67,7 @@ td.cell.o { outline: 3px solid #f57c1f; outline-offset: -4px; border-radius: 10p
 </style>
 </head>
 <body>
+<script src="nav.js"></script>
 <h1>萬紫千紅 角色招募表</h1>
 <div class="note legend">
     <span><b>#R</b>＝名聲等級</span>
@@ -67,8 +77,10 @@ td.cell.o { outline: 3px solid #f57c1f; outline-offset: -4px; border-radius: 10p
 <div class="note">每格下方的勾選框可以自由切換，狀態會記在瀏覽器裡：<b style="color:#1565c0">✗</b>＝原圖的劃線（頭像變淡）、<b style="color:#d00">✗</b>＝自己標記（頭像變淡並劃線）、<b style="color:#e00">★</b>＝星號。<button class="btn" id="reset">恢復成原圖的狀態</button></div>
 <div class="note order" id="order"></div>
 <div class="wrap"><table id="recruit"></table></div>
-<div class="note">資料來源：<a href="https://www.rpgsite.net/guide/21391-fire-emblem-fortunes-weave-recruitment-guide-all-characters-in-game-how-to-recruit-them" target="_blank">rpgsite.net 招募指南</a>；頭像、日文名取自 GameWith；中文譯名取自<a href="https://docs.qq.com/sheet/DR1J5V1FydnpSSGp4?tab=g92spi" target="_blank">騰訊文檔「火焰纹章万紫千红」</a>（轉為繁體）。</div>
+<div class="note">資料來源：<a href="https://www.rpgsite.net/guide/21391-fire-emblem-fortunes-weave-recruitment-guide-all-characters-in-game-how-to-recruit-them" target="_blank">rpgsite.net 招募指南</a>；頭像、日文名、招募條件取自 GameWith；中文譯名取自<a href="https://docs.qq.com/sheet/DR1J5V1FydnpSSGp4?tab=g92spi" target="_blank">騰訊文檔「火焰纹章万紫千红」</a>（轉為繁體）。</div>
 
+<div id="pop"></div>
+<script src="scout_data.js"></script>
 <script>
 // GameWith 頭像編號對應日文名、頁面編號、中文譯名
 var JA = {
@@ -223,12 +235,12 @@ function build() {
                     if (s) { cls += ' is-star'; }
                     var face = FACE[name] ? '<img src="img/chara/chara_' + FACE[name] + '.png" alt="' + name + '">' : '<img alt="">';
                     var ja = JA[FACE[name]];
-                    var nm = ja ? '<a href="https://gamewith.jp/fefw/' + ja[1] + '" target="_blank" title="' + name + '">' + ja[2] + '</a><small>' + ja[0] + '</small>' : name;
+                    var nm = ja ? '<a href="角色成長率一覽.html#c=' + FACE[name] + '&rt=' + ROUTES[gi].key + '" title="' + name + '：到角色成長率一覽查看">' + ja[2] + '</a><small>' + ja[0] + '</small>' : name;
                     html += '<td class="' + cls + '" data-id="' + id + '">'
                         + '<span class="badge">★</span>'
                         + '<div class="face">' + face + '</div>'
                         + '<span class="nm">' + nm + '</span>'
-                        + '<span class="req">' + req + '</span>'
+                        + '<span class="req">' + req + (SCOUT[FACE[name]] ? (req ? ' ' : '') + '<span class="sc" data-f="' + FACE[name] + '" data-rt="' + ROUTES[gi].key + '">招募條件</span>' : '') + '</span>'
                         + '<hr>'
                         + '<div class="ck">'
                         + '<label><input type="checkbox" data-k="x"' + (x ? ' checked' : '') + '><span class="x">✗</span></label>'
@@ -270,6 +282,43 @@ document.getElementById('order').addEventListener('click', function (ev) {
 document.getElementById('reset').addEventListener('click', function () {
     try { localStorage.removeItem(STORE); } catch (e) {}
     build();
+});
+// 點「招募條件」時顯示摘要與各路線條件，點其他地方關閉
+var pop = document.getElementById('pop'), curSc = null;
+var RT_NAME = { cai: '凱伊篇', die: '迪托利希篇', the: '賽奧朵拉篇', led: '蕾達篇' };
+function closePop() {
+    pop.style.display = 'none';
+    if (curSc !== null) { curSc.classList.remove('on'); curSc = null; }
+}
+function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+document.addEventListener('click', function (ev) {
+    var sc = ev.target.closest('.sc');
+    if (sc === null) {
+        if (pop.contains(ev.target) === false) { closePop(); }
+        return;
+    }
+    if (sc === curSc) { closePop(); return; }
+    closePop();
+    var d = SCOUT[sc.dataset.f], ja = JA[sc.dataset.f];
+    var html = '<b>' + (ja ? ja[2] + '（' + ja[0] + '）' : '') + ' 招募條件</b>' + esc(d.s).replace(/\n/g, '<br>');
+    html += '<table><tr><th>路線</th><th>初次出現</th><th>條件</th><th>交涉</th></tr>';
+    d.r.forEach(function (r) {
+        html += '<tr' + (r[0] === RT_NAME[sc.dataset.rt] ? ' class="cur"' : '') + '><th>' + esc(r[0]) + '</th><td>' + esc(r[1] || '—')
+            + '</td><td>' + esc(r[2] || '—') + '</td><td>' + esc(r[3] || '—') + '</td></tr>';
+    });
+    pop.innerHTML = html + '</table>';
+    pop.style.display = 'block';
+    var rc = sc.getBoundingClientRect();
+    var left = Math.min(rc.left + window.scrollX, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8);
+    pop.style.left = Math.max(window.scrollX + 8, left) + 'px';
+    pop.style.top = (rc.bottom + window.scrollY + 4) + 'px';
+    sc.classList.add('on');
+    curSc = sc;
+});
+document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') { closePop(); }
 });
 buildOrder();
 build();
